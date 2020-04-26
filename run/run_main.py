@@ -1,0 +1,81 @@
+# -*- coding:utf-8 -*-
+__author__ = "leo"
+
+import unittest
+import json
+
+from base.base_request import request
+from util.handle_excel import excel_data
+from util.handle_header import handle_header
+from util.handle_result import handle_result
+from util.handle_cookie import handle_cookie
+
+
+class RunMain:
+    def run_case(self):
+        rows = excel_data.get_rows()
+
+        for i in range(2, rows + 1):
+            data = excel_data.get_rows_value(i)
+            cookie = None
+            get_cookie = None
+            header = None
+            is_run = data[2]
+
+            if is_run == "yes":
+                method = data[5]
+                url = data[4]
+                data1 = data[6]
+                cookie_method = data[7]
+                is_header = data[8]
+                excepted_method = data[9]
+                excepted_result = data[10]
+
+                if cookie_method == "yes":
+                    cookie = handle_cookie.get_cookie_value("app")
+
+                if cookie_method == "write":
+                    get_cookie = {"is_cookie": "app"}
+
+                if is_header == "yes":
+                    header = handle_header.get_header()
+
+                res = request.run_main(method=method, url=url, data=data1,
+                                       cookie=cookie, get_cookie=get_cookie, header=header)
+
+                code = res["errorCode"]
+                message = res["errorDesc"]
+                if excepted_method == "mec":
+                    config_message = handle_result.get_result(url, code)
+                    if message == config_message:
+                        excel_data.excel_write_data(i, 12, "case 通过")
+                    else:
+                        excel_data.excel_write_data(i, 12, "case 失败")
+                        excel_data.excel_write_data(i, 13, json.dumps(res))
+
+                if excepted_method == "error_code":
+                    if str(excepted_result) == str(code):
+                        excel_data.excel_write_data(i, 12, "case 通过")
+                    else:
+                        excel_data.excel_write_data(i, 12, "case 失败")
+                        excel_data.excel_write_data(i, 13, json.dumps(res))
+
+                if excepted_method == "json":
+                    if code == 1000:
+                        status = "sucess"
+                    else:
+                        status = "error"
+                    expected_result = handle_result.get_result_json(url, status)
+                    # print("res>>>", res)
+                    # print("expected_result>>>", expected_result)
+                    result = handle_result.get_json_result(res, expected_result)
+                    if result:
+                        excel_data.excel_write_data(i, 12, "case 通过")
+                    else:
+                        excel_data.excel_write_data(i, 12, "case 失败")
+                        excel_data.excel_write_data(i, 13, json.dumps(res))
+
+
+if __name__ == '__main__':
+    run = RunMain()
+    run.run_case()
