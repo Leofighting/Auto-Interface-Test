@@ -1,5 +1,5 @@
 {
-  "api3/getbanneradvertver2": {
+  "/api3/getbanneradvertver2": {
     "status": 0,
     "data": {
       "banner": [
@@ -84,7 +84,7 @@
     "errorDesc": "\u6210\u529f",
     "timestamp": 1561269343507
   },
-  "api3/beta4": {
+  "/api3/beta4": {
     "status": 1,
     "data": [
       {
@@ -935,7 +935,7 @@
     "errorDesc": "\u6210\u529f",
     "timestamp": 1561274618249
   },
-  "api3/newcourseskill": {
+  "/api3/newcourseskill": {
     "status": 1,
     "data": {
       "id": 0,
@@ -1571,7 +1571,7 @@
     "errorDesc": "\u6210\u529f",
     "timestamp": 1561274619244
   },
-  "api3/getdownrecommend": {
+  "/api3/getdownrecommend": {
     "status": 1,
     "data": [
       {
@@ -1821,7 +1821,7 @@
     "errorDesc": "\u6210\u529f",
     "timestamp": 1561274617779
   },
-  "api3/getcourseintro": {
+  "/api3/getcourseintro": {
     "status": 1,
     "data": {
       "id": "1134",
@@ -1864,7 +1864,7 @@
     "timestamp": 1561274619697,
     "hash": "1906231523325044"
   },
-  "api3/getmedialist": {
+  "/api3/getmedialist": {
     "status": 1,
     "data": [
       {
@@ -2164,7 +2164,7 @@
     "errorDesc": "\u6210\u529f",
     "timestamp": 1561274619612
   },
-  "api3/courselistinfo": {
+  "/api3/courselistinfo": {
     "status": 1,
     "data": [
       {

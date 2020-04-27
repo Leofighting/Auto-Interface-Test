@@ -104,7 +104,6 @@ class TestRunCaseDdt(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    # unittest.main()
     base_path = os.path.dirname(os.getcwd())
     case_path = os.getcwd()
     discover = unittest.defaultTestLoader.discover(case_path, pattern="run_case*.py")

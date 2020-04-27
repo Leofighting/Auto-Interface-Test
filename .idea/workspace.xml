@@ -3,11 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="664b6f0b-a079-4faa-89c6-cf37318a94ae" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/case/case.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/case/case.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/run_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/run/run_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/server.ini" beforeDir="false" afterPath="$PROJECT_DIR$/config/server.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/user_data.json" beforeDir="false" afterPath="$PROJECT_DIR$/config/user_data.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/run_case_ddt.py" beforeDir="false" afterPath="$PROJECT_DIR$/run/run_case_ddt.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unittest_case/ddt_case.py" beforeDir="false" afterPath="$PROJECT_DIR$/unittest_case/ddt_case.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/util/condition_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/condition_data.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/util/handle_excel.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/handle_excel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/handle_json.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/handle_json.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +34,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -48,6 +51,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/run/run_case_ddt.py" />
@@ -273,7 +277,7 @@
       <workItem from="1587784901244" duration="89000" />
       <workItem from="1587784998383" duration="15402000" />
       <workItem from="1587857486086" duration="29381000" />
-      <workItem from="1587942381240" duration="11450000" />
+      <workItem from="1587942381240" duration="22109000" />
     </task>
     <servers />
   </component>
@@ -289,30 +293,34 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1587954765405" />
-    <state width="1139" height="304" key="GridCell.Tab.0.bottom" timestamp="1587958921112">
+    <state width="1877" height="304" key="GridCell.Tab.0.bottom" timestamp="1587967480489">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1139" height="304" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587958921112" />
-    <state width="1139" height="304" key="GridCell.Tab.0.center" timestamp="1587958921112">
+    <state width="1877" height="304" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587967480489" />
+    <state width="1877" height="304" key="GridCell.Tab.0.center" timestamp="1587967480489">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1139" height="304" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587958921112" />
-    <state width="1139" height="304" key="GridCell.Tab.0.left" timestamp="1587958921112">
+    <state width="1877" height="304" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587967480489" />
+    <state width="1877" height="304" key="GridCell.Tab.0.left" timestamp="1587967480489">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1139" height="304" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587958921112" />
-    <state width="1139" height="304" key="GridCell.Tab.0.right" timestamp="1587958921112">
+    <state width="1877" height="304" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587967480489" />
+    <state width="1877" height="304" key="GridCell.Tab.0.right" timestamp="1587967480489">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1139" height="304" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587958921112" />
+    <state width="1877" height="304" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587967480489" />
     <state x="788" y="148" key="SettingsEditor" timestamp="1587785038985">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="788" y="148" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1587785038985" />
-    <state x="1167" y="243" width="647" height="534" key="find.popup" timestamp="1587956598829">
+    <state x="1167" y="243" width="647" height="534" key="find.popup" timestamp="1587979736209">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1167" y="243" width="647" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1587956598829" />
+    <state x="1167" y="243" width="647" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1587979736209" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1587969614968">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1587969614968" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/auto_interface_test_V2$Unittests_in_test_py.coverage" NAME="Unittests in test.py Coverage Results" MODIFIED="1587908912280" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

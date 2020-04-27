@@ -22,9 +22,13 @@ class HandleJson:
         data = self.read_json(file_name)
         return data.get(key)
 
-    def write_value(self, data):
+    def write_value(self, data, file_name=None):
+        if file_name is None:
+            path = base_path + "/config/cookie.json"
+        else:
+            path = base_path + file_name
         data_value = json.dumps(data)
-        with open(base_path + "/config/cookie.json", "w") as f:
+        with open(path, "w") as f:
             f.write(data_value)
 
 

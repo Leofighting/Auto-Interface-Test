@@ -33,4 +33,3 @@ class ConditionData:
 
 
 condition_data = ConditionData()
-# print(condition_data.depend_data("imooc_004>data.banner.[0].id"))

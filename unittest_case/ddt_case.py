@@ -7,6 +7,7 @@ from ddt import data, ddt
 
 test_data = [[1, 2, 3, 4], [3, 4, 5, 56], [4, 5, 6, 7]]
 
+
 @ddt
 class TestCase01(unittest.TestCase):
     def setUp(self) -> None:

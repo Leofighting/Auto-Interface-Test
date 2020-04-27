@@ -64,7 +64,7 @@ class HandleExcel:
     def get_excel_data(self):
         """将 Excel 中每一行的数据存储在一个列表中"""
         data_list = []
-        for i in range(2, self.get_rows()+1):
+        for i in range(2, self.get_rows() + 1):
             data_list.append(self.get_rows_value(i))
 
         return data_list
