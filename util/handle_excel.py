@@ -61,13 +61,13 @@ class HandleExcel:
             return col_data.index(case_id) + 1
         return None
 
+    def get_excel_data(self):
+        """将 Excel 中每一行的数据存储在一个列表中"""
+        data_list = []
+        for i in range(2, self.get_rows()+1):
+            data_list.append(self.get_rows_value(i))
+
+        return data_list
+
 
 excel_data = HandleExcel()
-
-# print(excel_data.get_column_value())
-# print(excel_data.get_row_number("imooc_003"))
-# print(excel_data.get_rows_value(4))
-
-# if __name__ == '__main__':
-#     handle = HandleExcel()
-#     print(handle.get_rows_value(2))

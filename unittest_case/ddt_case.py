@@ -14,7 +14,7 @@ class TestCase01(unittest.TestCase):
 
     def tearDown(self) -> None:
         print("结束")
-        
+
     @data(*test_data)
     def test_01(self, data1):
         num1, num2, num3, num4 = data1

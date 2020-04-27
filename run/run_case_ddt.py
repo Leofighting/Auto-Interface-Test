@@ -1,32 +1,41 @@
 # -*- coding:utf-8 -*-
 __author__ = "leo"
 
-import unittest
 import json
+import os
+import time
+import unittest
+
+import ddt
+import HTMLTestRunner_PY3
 
 from base.base_request import request
 from util.condition_data import condition_data
+from util.handle_cookie import handle_cookie
 from util.handle_excel import excel_data
 from util.handle_header import handle_header
 from util.handle_result import handle_result
-from util.handle_cookie import handle_cookie
+
+test_data = excel_data.get_excel_data()
 
 
-class RunMain:
-    def run_case(self):
-        rows = excel_data.get_rows()
+@ddt.ddt
+class TestRunCaseDdt(unittest.TestCase):
 
-        for i in range(2, rows + 1):
-            data = excel_data.get_rows_value(i)
-            cookie = None
-            get_cookie = None
-            header = None
-            depend_data = None
-            is_run = data[2]
+    @ddt.data(*test_data)
+    def test_main_case(self, data):
+        cookie = None
+        get_cookie = None
+        header = None
+        depend_data = None
+        case_id = data[0]
+        is_run = data[2]
+        i = excel_data.get_row_number(case_id)
 
-            if is_run == "yes":
-                is_depend = data[3]
-                data1 = json.loads(data[7])
+        if is_run == "yes":
+            is_depend = data[3]
+            data1 = json.loads(data[7])
+            try:
                 if is_depend:
                     """获取依赖数据"""
                     depend_key = data[4]
@@ -57,18 +66,22 @@ class RunMain:
                 message = res["errorDesc"]
                 if excepted_method == "mec":
                     config_message = handle_result.get_result(url, code)
-                    if message == config_message:
+                    try:
+                        self.assertEqual(message, config_message)
                         excel_data.excel_write_data(i, 13, "case 通过")
-                    else:
+                    except Exception as e:
                         excel_data.excel_write_data(i, 13, "case 失败")
                         excel_data.excel_write_data(i, 14, json.dumps(res))
+                        raise e
 
                 if excepted_method == "error_code":
-                    if str(excepted_result) == str(code):
+                    try:
+                        self.assertEqual(str(excepted_result), str(code))
                         excel_data.excel_write_data(i, 13, "case 通过")
-                    else:
+                    except Exception as e:
                         excel_data.excel_write_data(i, 13, "case 失败")
                         excel_data.excel_write_data(i, 14, json.dumps(res))
+                        raise e
 
                 if excepted_method == "json":
                     if code == 1000:
@@ -78,12 +91,27 @@ class RunMain:
                     expected_result = handle_result.get_result_json(url, status)
                     result = handle_result.get_json_result(res, expected_result)
                     if result:
-                        excel_data.excel_write_data(i, 13, "case 通过")
-                    else:
-                        excel_data.excel_write_data(i, 13, "case 失败")
-                        excel_data.excel_write_data(i, 14, json.dumps(res))
+                        try:
+                            self.assertTrue(result)
+                            excel_data.excel_write_data(i, 13, "case 通过")
+                        except Exception as e:
+                            excel_data.excel_write_data(i, 13, "case 失败")
+                            excel_data.excel_write_data(i, 14, json.dumps(res))
+                            raise e
+            except Exception as e:
+                excel_data.excel_write_data(i, 13, "case 失败")
+                raise e
 
 
 if __name__ == '__main__':
-    run = RunMain()
-    run.run_case()
+    # unittest.main()
+    base_path = os.path.dirname(os.getcwd())
+    case_path = os.getcwd()
+    discover = unittest.defaultTestLoader.discover(case_path, pattern="run_case*.py")
+    file_name = time.strftime("%Y%m%d%H%M%S", time.localtime(time.time()))
+    html_file = base_path + "/report/" + file_name + "_report.html"
+
+    with open(html_file, "wb") as f:
+        runner = HTMLTestRunner_PY3.HTMLTestRunner(stream=f, title="Leo Report",
+                                                   description="An Interface Test Report~~")
+        runner.run(discover)

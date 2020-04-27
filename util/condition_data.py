@@ -28,7 +28,7 @@ class ConditionData:
 
     def get_data(self, data):
         res_data = self.depend_data(data)
-        rule_data = self.split_data(data)
+        rule_data = self.split_data(data)[1]
         return self.get_depend_data(rule_data, res_data)
 
 

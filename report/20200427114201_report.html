@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Leo Report</title>
+    <meta name="generator" content="HTMLTestRunner 0.9.1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/echarts/3.8.5/echarts.common.min.js"></script>
+    <!-- <script type="text/javascript" src="js/echarts.common.min.js"></script> -->
+    
+    
+<style type="text/css" media="screen">
+    body        { font-family: Microsoft YaHei,Consolas,arial,sans-serif; font-size: 80%; }
+    table       { font-size: 100%; }
+    pre         { white-space: pre-wrap;word-wrap: break-word; }
+
+    /* -- heading ---------------------------------------------------------------------- */
+    h1 {
+        font-size: 16pt;
+        color: gray;
+    }
+    .heading {
+        margin-top: 0ex;
+        margin-bottom: 1ex;
+    }
+
+    .heading .attribute {
+        margin-top: 1ex;
+        margin-bottom: 0;
+    }
+
+    .heading .description {
+        margin-top: 2ex;
+        margin-bottom: 3ex;
+    }
+
+    /* -- css div popup ------------------------------------------------------------------------ */
+    a.popup_link {
+    }
+
+    a.popup_link:hover {
+        color: red;
+    }
+
+    .popup_window {
+        display: none;
+        position: relative;
+        left: 0px;
+        top: 0px;
+        /*border: solid #627173 1px; */
+        padding: 10px;
+        /*background-color: #E6E6D6; */
+        font-family: "Lucida Console", "Courier New", Courier, monospace;
+        text-align: left;
+        font-size: 8pt;
+        /* width: 500px;*/
+    }
+
+    }
+    /* -- report ------------------------------------------------------------------------ */
+    #show_detail_line {
+        margin-top: 3ex;
+        margin-bottom: 1ex;
+    }
+    #result_table {
+        width: 99%;
+    }
+    #header_row {
+        font-weight: bold;
+        color: #303641;
+        background-color: #ebebeb;
+    }
+    #total_row  { font-weight: bold; }
+    .passClass  { background-color: #bdedbc; }
+    .failClass  { background-color: #ffefa4; }
+    .errorClass { background-color: #ffc9c9; }
+    .passCase   { color: #6c6; }
+    .failCase   { color: #FF6600; font-weight: bold; }
+    .errorCase  { color: #c00; font-weight: bold; }
+    .hiddenRow  { display: none; }
+    .testcase   { margin-left: 2em; }
+
+
+    /* -- ending ---------------------------------------------------------------------- */
+    #ending {
+    }
+
+    #div_base {
+                position:absolute;
+                top:0%;
+                left:5%;
+                right:5%;
+                width: auto;
+                height: auto;
+                margin: -15px 0 0 0;
+    }
+</style>
+
+    
+</head>
+<body>
+    <script language="javascript" type="text/javascript"><!--
+    output_list = Array();
+
+    /* level - 0:Summary; 1:Failed; 2:All */
+    function showCase(level) {
+        trs = document.getElementsByTagName("tr");
+        for (var i = 0; i < trs.length; i++) {
+            tr = trs[i];
+            id = tr.id;
+            if (id.substr(0,2) == 'ft') {
+                if (level < 1) {
+                    tr.className = 'hiddenRow';
+                }
+                else {
+                    tr.className = '';
+                }
+            }
+            if (id.substr(0,2) == 'pt') {
+                if (level > 1) {
+                    tr.className = '';
+                }
+                else {
+                    tr.className = 'hiddenRow';
+                }
+            }
+        }
+    }
+
+
+    function showClassDetail(cid, count) {
+        var id_list = Array(count);
+        var toHide = 1;
+        for (var i = 0; i < count; i++) {
+            tid0 = 't' + cid.substr(1) + '.' + (i+1);
+            tid = 'f' + tid0;
+            tr = document.getElementById(tid);
+            if (!tr) {
+                tid = 'p' + tid0;
+                tr = document.getElementById(tid);
+            }
+            id_list[i] = tid;
+            if (tr.className) {
+                toHide = 0;
+            }
+        }
+        for (var i = 0; i < count; i++) {
+            tid = id_list[i];
+            if (toHide) {
+                document.getElementById('div_'+tid).style.display = 'none'
+                document.getElementById(tid).className = 'hiddenRow';
+            }
+            else {
+                document.getElementById(tid).className = '';
+            }
+        }
+    }
+
+
+    function showTestDetail(div_id){
+        var details_div = document.getElementById(div_id)
+        var displayState = details_div.style.display
+        // alert(displayState)
+        if (displayState != 'block' ) {
+            displayState = 'block'
+            details_div.style.display = 'block'
+        }
+        else {
+            details_div.style.display = 'none'
+        }
+    }
+
+
+    function html_escape(s) {
+        s = s.replace(/&/g,'&amp;');
+        s = s.replace(/</g,'&lt;');
+        s = s.replace(/>/g,'&gt;');
+        return s;
+    }
+
+    /* obsoleted by detail in <div>
+    function showOutput(id, name) {
+        var w = window.open("", //url
+                        name,
+                        "resizable,scrollbars,status,width=800,height=450");
+        d = w.document;
+        d.write("<pre>");
+        d.write(html_escape(output_list[id]));
+        d.write("\n");
+        d.write("<a href='javascript:window.close()'>close</a>\n");
+        d.write("</pre>\n");
+        d.close();
+    }
+    */
+    --></script>
+
+    <div id="div_base">
+        
+    <div class='page-header'>
+        <h1>Leo Report</h1>
+    <p class='attribute'><strong>开始时间:</strong> 2020-04-27 11:42:01</p>
+<p class='attribute'><strong>运行时长:</strong> 0:00:01.176888</p>
+<p class='attribute'><strong>状态:</strong> 通过 7</p>
+
+    </div>
+    <div style="float: left;width:50%;"><p class='description'>An Interface Test Report~~</p></div>
+    <div id="chart" style="width:50%;height:400px;float:left;"></div>
+
+        
+    <div class="btn-group btn-group-sm">
+        <button class="btn btn-default" onclick='javascript:showCase(0)'>总结</button>
+        <button class="btn btn-default" onclick='javascript:showCase(1)'>失败</button>
+        <button class="btn btn-default" onclick='javascript:showCase(2)'>全部</button>
+    </div>
+    <p></p>
+    <table id='result_table' class="table table-bordered">
+        <colgroup>
+            <col align='left' />
+            <col align='right' />
+            <col align='right' />
+            <col align='right' />
+            <col align='right' />
+            <col align='right' />
+        </colgroup>
+        <tr id='header_row'>
+            <td>测试套件/测试用例</td>
+            <td>总数</td>
+            <td>通过</td>
+            <td>失败</td>
+            <td>错误</td>
+            <td>查看</td>
+        </tr>
+        
+    <tr class='passClass'>
+        <td>run_case_ddt.TestRunCaseDdt</td>
+        <td>7</td>
+        <td>7</td>
+        <td>0</td>
+        <td>0</td>
+        <td><a href="javascript:showClassDetail('c1',7)">详情</a></td>
+    </tr>
+
+<tr id='pt1.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_main_case_1___imooc_001____获取广告位____yes___None__None___api3_getbanneradvertver2____post______username___111111______yes____yes____mec___None___case_通过______status___0___data_____banner______id___2262___type___6___type_id___330___name______u524d__u7aef__u4e0b__u4e00__u4ee3__u5f00__u53d1__u8bed__u8a00TypeScript____u4ece__u57fa__u7840__u5230axios__u5b9e__u6218____pic____http___szimg_mukewang_com_5cf721df09fc2be500000000_jpg____links__________id___1648___type___6___type_id___169___name____Python3__u5165__u95e8__u673a__u5668__u5b66__u4e60___u7ecf__u5178__u7b97__u6cd5__u4e0e__u5e94__u7528____pic____http___szimg_mukewang_com_5d0ed2d9085bd6ed09000300_jpg____links__________id___1875___type___6___type_id___316___name______u4ece__u57fa__u7840__u5230__u5b9e__u6218___u624b__u628a__u624b__u5e26__u4f60__u638c__u63e1__u65b0__u7248Webpack4_0____pic____http___szimg_mukewang_com_5d0ed2ca086a9e6f09000300_jpg____links__________id___1999___type___6___type_id___342___name______u7eaf__u6b63__u5546__u4e1a__u7ea7__u5e94__u7528_Node_js_Koa2__u5f00__u53d1__u5fae__u4fe1__u5c0f__u7a0b__u5e8f__u670d__u52a1__u7aef____pic____http___szimg_mukewang_com_5ceb5d370955f30f09000300_jpg____links__________id___2158___type___99___type_id___0___name____Spring_Cloud__u5fae__u670d__u52a1__u5f00__u53d1__u5b9e__u8df5____pic____http___img2_mukewang_com_5d088c4009bbebc009000300_jpg____links____https___www_imooc_com_read_37______id___1709___type___6___type_id___354___name____Node_js__u5f00__u53d1__u4eff__u77e5__u4e4e__u670d__u52a1__u7aef___u6df1__u5165__u7406__u89e3RESTful_API____pic____http___szimg_mukewang_com_5d0ed27508f7d96909000300_jpg____links__________pic______pic____http___www_imooc_com_static_img_andriod_pic_actual_day_3x_png____pic_night____http___www_imooc_com_static_img_andriod_pic_actual_night_3x_png____type___2_____pic____http___www_imooc_com_static_img_andriod_pic_path_day_3x_png____pic_night____http___www_imooc_com_static_img_andriod_pic_path_night_3x_png____type___6_____pic____http___www_imooc_com_static_img_andriod_pic_question_day_3x_png____pic_night____http___www_imooc_com_static_img_andriod_pic_question_night_3x_png____type___3_____pic____http___www_imooc_com_static_img_andriod_pic_note_day_3x_png____pic_night____http___www_imooc_com_static_img_andriod_pic_note_night_3x_png____type___4_____pic____http___www_imooc_com_static_img_andriod_pic_discover_day_3x_png____pic_night____http___www_imooc_com_static_img_andriod_pic_discover_night_3x_png____type___5______errorCode___1001___errorDesc______u6210__u529f____timestamp___1561269343507___</div></td>
+    <td colspan='5' align='center'>通过</td>
+</tr>
+
+<tr id='pt1.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_main_case_2___imooc_002____测试____yes____imooc_001_data_banner__0__id____id____api3_beta4____post______username___111112______no____no____error_code___1006___case_通过______status___1___data______name______u8bfe__u7a0b__u63a8__u8350____pic____http___www_imooc_com_static_img_andriod_icon_recommend_3x_png____pic_night____http___www_imooc_com_static_img_andriod_icon_recommend_night_3x_png____type___1___list_type___1___operate_type___1___course______id____1134____name______u6781__u901f__u5165__u95e8SpringCloud__u4e4bAPI__u7f51__u5173__u4e0e__u670d__u52a1__u53d1__u73b0____short_description____SpringCloud__u5fae__u670d__u52a1__u5b9e__u6218__uff0c__u4ece__u67b6__u6784__u5230__u7f51__u5173__u5230__u670d__u52a1__u53d1__u73b0__u3002__r__n____pic____http___img3_mukewang_com_5d0771a608ce48cb02000114_590_330_jpg____numbers____1270____type___1___share____http___www_imooc_com_learn_1134____is_learned___0___learn_rate____1___is_new___1___level______u521d__u7ea7____skill_id____220____skill_name____Java____skill_pic____http___img2_mukewang_com_5b17483e00019d4202400240_jpg____skill_color____ff4545____category_pic____http___img2_mukewang_com_5b1746ca000157da02400240_jpg____course_type___1___is_learn___0___bgcolor_start_____ffff739b____bgcolor_end_____b3ff739b____skills______id____220____name____Java______id____5241____name____Spring_Cloud________id____1133____name____PHP__u52a0__u5bc6____short_description______u4e3a__u4ec0__u4e48__u8981__u4f7f__u7528__u52a0__u5bc6__uff0c__u8ba9__u6211__u4eec__u5bf9__u5bc6__u7801__u5b66__u6709__u4e2a__u521d__u6b65__u7684__u8ba4__u8bc6__u3002____pic____http___img3_mukewang_com_5d01e4a508f8c1e706000338_590_330_jpg____numbers____460____type___1___share____http___www_imooc_com_learn_1133____is_learned___0___learn_rate____1___is_new___1___level______u4e2d__u7ea7____skill_id____1____skill_name____PHP____skill_pic____http___img4_mukewang_com_59c895400001280402400240_jpg____skill_color____5280f1____category_pic____http___img1_mukewang_com_5b174699000182b802400240_jpg____course_type___1___is_learn___0___bgcolor_start_____ffd273e6____bgcolor_end_____b3d273e6____skills______id____1____name____PHP________id____472____name____Cocos2d_x__u6e38__u620f__u4e4b__u4e03__u5915__u5973__u795e__u6293__u6355__u8ba1__u5212____short_description______u62ef__u6551__u9648__u65e0__u7801__u4ece__u6e38__u620f__u5f00__u53d1__u5f00__u59cb__uff0c__u5982__u679c__u4f60__u60f3__u9006__u88ad__uff0c__u90a3__u4e48__u5feb__u6765__u5b66__u4e60____pic____http___img3_mukewang_com_55c47a0a0001347b06000338_590_330_jpg____numbers____45138____type___1___share____http___www_imooc_com_learn_472____is_learned___0___learn_rate____1___is_new___0___level______u4e2d__u7ea7____skill_id____1361____skill_name____Cocos2d_x____skill_pic____http___img4_mukewang_com_5b17497c00016bcf02400240_jpg____skill_color____17c5bc____category_pic____http___img_mukewang_com_5b1749810001b5a002400240_jpg____course_type___1___is_learn___0___skills______id____1361____name____Cocos2d_x______id____1331____name____C________bgcolor_start_____ffff739b____bgcolor_end_____b3ff739b______id____125____name____Web_App__u4e0b__u56fe__u7247__u6ed1__u52a8__u7ec4__u4ef6__u7684__u5f00__u53d1____short_description______u672c__u8bfe__u7a0b__u5c31__u662f__u8bb2__u8ff0__u4ece__u96f6__u5f00__u59cb__uff0c__u5982__u4f55__u6784__u5efa__u4e00__u4e2a__u79fb__u52a8__u7aef__u7684__u6ed1__u52a8__u7ec4__u4ef6____pic____http___img2_mukewang_com_5705d0d600013ea906000338_590_330_jpg____numbers____38332____type___1___share____http___www_imooc_com_learn_125____is_learned___0___learn_rate____1___is_new___0___level______u4e2d__u7ea7____skill_id____1260____skill_name____WebApp____skill_pic____http___img_mukewang_com_59c896080001e08602400240_jpg____skill_color____ff5058____category_pic____http___img4_mukewang_com_5b17466a0001bc0c02400240_jpg____course_type___1___is_learn___0___bgcolor_start_____ffff9600____bgcolor_end_____b3ff9600____skills______id____1260____name____WebApp__________name______u5c31__u4e1a__u73ed____pic____http___www_imooc_com_static_img_andriod_icon_class_3x_png____pic_night____http___www_imooc_com_static_img_andriod_icon_class_night_3x_png____type___7___list_type___2___operate_type___1___course______id____67____name______u96f6__u57fa__u7840Java__u5c0f__u767d__u4f53__u9a8c__u8bfe____short_description________pic____http___climg_mukewang_com_5c8628560001189f06000338_jpg____numbers____1296____courses____4____type___4___share____http___class_imooc_com_sc_67____is_learned___0___learn_rate____1___steps____4____cat_name____JAVA__u5f00__u53d1__u5de5__u7a0b__u5e08____skill_name____Android__u653b__u57ce__u72ee____skill_pic____http___www_imooc_com_static_img_andriod_zhiye_android_png____category_pic____http___www_imooc_com_static_img_andriod_zhiye_android_png____skill_color____00B43C____is_new___0___pay_price____9_99____discount_type____1____discount_name______u9650__u65f6__u4fc3__u9500____discount_price____9_99____discount_start_time____0____discount_end_time____0____price___4900___is_buy___0_____id____66____name______u5165__u95e8__u4e3b__u6d41__u6846__u67b6Scrapy__u4e0e__u722c__u866b__u9879__u76ee__u5b9e__u6218____short_description________pic____http___climg_mukewang_com_5c87804700018a9106000338_jpg____numbers____362____courses____14____type___4___share____http___class_imooc_com_sc_66____is_learned___0___learn_rate____1___steps____4____cat_name____Python__u5f00__u53d1__u5de5__u7a0b__u5e08____skill_name____Android__u653b__u57ce__u72ee____skill_pic____http___www_imooc_com_static_img_andriod_zhiye_android_png____category_pic____http___www_imooc_com_static_img_andriod_zhiye_android_png____skill_color____00B43C____is_new___0___pay_price____868____discount_type___0___discount_name________discount_price________discount_start_time___0___discount_end_time___0___price___86800___is_buy___0_____id____65____name______u4ece__u7f51__u9875__u642d__u5efa__u5165__u95e8Python_Web____short_description________pic____http___climg_mukewang_com_5c87807700013c7906000338_jpg____numbers____391____courses____22____type___4___share____http___class_imooc_com_sc_65____is_learned___0___learn_rate____1___steps____4____cat_name____Python__u5f00__u53d1__u5de5__u7a0b__u5e08____skill_name____Android__u653b__u57ce__u72ee____skill_pic____http___www_imooc_com_static_img_andriod_zhiye_android_png____category_pic____http___www_imooc_com_static_img_andriod_zhiye_android_png____skill_color____00B43C____is_new___0___pay_price____799____discount_type___0___discount_name________discount_price________discount_start_time___0___discount_end_time___0___price___79900___is_buy___0_______name____banner__u5e7f__u544a____pic________pic_night________type___6___list_type___1___operate_type___0___ads______id___2085___type___99___type_id___0___name____python____pic____http___img3_mukewang_com_5cd929c5099c98df10530138_jpg____links____https___class_imooc_com_sale_python________name______u5b9e__u6218__u63a8__u8350____pic____http___www_imooc_com_static_img_andriod_icon_shizhan_3x_png____pic_night____http___www_imooc_com_static_img_andriod_icon_shizhan_night_3x_png____type___2___list_type___1___operate_type___1___course______id____187____name____SpringCloud__Finchley__u4e09__u7248__u672c_M2_RELEASE_SR2___u5fae__u670d__u52a1__u5b9e__u6218____order_type___2___short_description______u719f__u7ec3__u4f7f__u7528SpringCloud__u7ec4__u4ef6__u5b9e__u73b0__u5fae__u670d__u52a1__uff0c__u5411__u67b6__u6784__u5e08__u8fc8__u8fdb__uff01__u3010__u5df2__u5347__u7ea7__u81f3Finchley_Release__u3011____pic____http___img1_sycdn_imooc_com_szimg_5cb68a1408ed350506000338_360_202_jpg____numbers____4111____type___2___share____http___www_imooc_com_m_wap_shizhan_classindex_html_cid_187____is_learned___0___learn_rate____1___is_buy___0___is_new___0___level______u9ad8__u7ea7____skill_id____220____skill_name____Java____skill_pic____http___img2_mukewang_com_5b17483e00019d4202400240_jpg____skill_color____ff4545____category_pic____http___img4_mukewang_com_5b1746ca000157da02400240_jpg____pay_price____366____discount_type___0___discount_name________discount_price________discount_start_time___0___discount_end_time___0___price___36600___course_type___2___wap____http___coding_imooc_com_wap_classindex_cid_187____is_learn___0___act_name________bgcolor_start_____ffff739b____bgcolor_end_____b3ff739b____skills______id____220____name____Java______id____4737____name______u5fae__u670d__u52a1______id____5241____name____Spring_Cloud________id____160____name____Python_Django_Ansible_Playbook__u81ea__u52a8__u5316__u8fd0__u7ef4__u9879__u76ee__u5b9e__u6218____order_type___2___short_description______u3010__u8bfe__u7a0b__u4ee3__u7801__u5347__u7ea73_6__u7248__u672c__u3011__u963f__u91cc__u5927__u725b__u5168__u9762__u8df5__u884cDevOps__uff0c__u5e26__u4f60__u5f00__u542f__u8fd0__u7ef4__u4e0e__u5f00__u53d1__u95f4__u9ad8__u6548__u534f__u4f5c__u6a21__u5f0f__uff01____pic____http___img1_sycdn_imooc_com_szimg_5a5334a50001d3dc05400300_360_202_jpg____numbers____551____type___2___share____http___www_imooc_com_m_wap_shizhan_classindex_html_cid_160____is_learned___0___learn_rate____1___is_buy___0___is_new___0___level______u4e2d__u7ea7____skill_id____1118____skill_name____Python____skill_pic____http___img1_mukewang_com_59c896b50001942802400240_jpg____skill_color____0070bb____category_pic____http___img2_mukewang_com_5b1746ed0001976102400240_jpg____pay_price____388____discount_type___0___discount_name________discount_price________discount_start_time___0___discount_end_time___0___price___38800___course_type___2___wap____http___coding_imooc_com_wap_classindex_cid_160____is_learn___0___act_name________bgcolor_start_____ff4b96dc____bgcolor_end_____b34b96dc____skills______id____1118____name____Python______id____5207____name______u81ea__u52a8__u5316__u8fd0__u7ef4________id____308____name____Top__u56e2__u961f__u5927__u725b__u5e26__u4f60__u73a9__u8f6cAndroid__u6027__u80fd__u5206__u6790__u4e0e__u4f18__u5316____order_type___2___short_description______u7531__u8868__u53ca__u91cc__u5b66__u5230__u56fd__u5185Top__u56e2__u961f__u5bf9__u6027__u80fd__u95ee__u9898__u7684__u4f53__u7cfb__u4f18__u5316__u65b9__u6848__u3001__u624b__u6bb5__u53ca__u4fdd__u969c__u7ecf__u9a8c____pic____http___img1_sycdn_imooc_com_szimg_5c26f19508ce8c8100000000_360_202_jpg____numbers____527____type___2___share____http___www_imooc_com_m_wap_shizhan_classindex_html_cid_308____is_learned___0___learn_rate____1___is_buy___0___is_new___0___level______u9ad8__u7ea7____skill_id____223____skill_name____Android____skill_pic____http___img4_mukewang_com_5b18943b00018ba502400240_jpg____skill_color____00b85a____category_pic____http___img3_mukewang_com_5b1747e50001d45c02400240_jpg____pay_price____288____discount_type___0___discount_name________discount_price________discount_start_time___0___discount_end_time___0___price___28800___course_type___2___wap____http___coding_imooc_com_wap_classindex_cid_308____is_learn___0___act_name________bgcolor_start_____ff00b95a____bgcolor_end_____b300b95a____skills______id____223____name____Android________id____274____name____MySQL__u6570__u636e__u5e93__u96c6__u7fa4_PXC__u65b9__u6848____order_type___2___short_description______u5b66__u4e60PXC__uff0c__u6253__u9020__u9ad8__u4ef7__u503c__u7684MySQL__u96c6__u7fa4____pic____http___img1_sycdn_imooc_com_szimg_5b8e74ac00019f7d05400300_360_202_jpg____numbers____238____type___2___share____http___www_imooc_com_m_wap_shizhan_classindex_html_cid_274____is_learned___0___learn_rate____1___is_buy___0___is_new___0___level______u4e2d__u7ea7____skill_id____952____skill_name____MySQL____skill_pic____http___img2_mukewang_com_5b17498d0001b07f02400240_jpg____skill_color____5892ee____category_pic____http___img1_mukewang_com_5b1749940001ab5a02400240_jpg____pay_price____299____discount_type___0___discount_name________discount_price________discount_start_time___0___discount_end_time___0___price___29900___course_type___2___wap____http___coding_imooc_com_wap_classindex_cid_274____is_learn___0___act_name________bgcolor_start_____ff4b96dc____bgcolor_end_____b34b96dc____skills______id____952____name____MySQL________id____167____name____BAT__u5927__u725b__u4eb2__u6388___u57fa__u4e8eElasticSearch__u7684__u641c__u623f__u7f51__u5b9e__u6218_____order_type___2___short_description____ES_MySQL_Kafka__uff0c__u7ed3__u5408__u767e__u5ea6__u5730__u56fe__u3001ELK__u7b49__u5b9e__u8df5ES__u9ad8__u7ea7__u5e94__u7528__uff0c__u6253__u9020__u5f3a__u529b__u7ad9__u5185__u641c__u7d22____pic____http___img1_sycdn_imooc_com_szimg_5a308c9400011c1305400300_360_202_jpg____numbers____669____type___2___share____http___www_imooc_com_m_wap_shizhan_classindex_html_cid_167____is_learned___0___learn_rate____1___is_buy___0___is_new___0___level______u9ad8__u7ea7____skill_id____220____skill_name____Java____skill_pic____http___img2_mukewang_com_5b17483e00019d4202400240_jpg____skill_color____ff4545____category_pic____http___img_mukewang_com_5b1746ca000157da02400240_jpg____pay_price____348____discount_type___0___discount_name________discount_price________discount_start_time___0___discount_end_time___0___price___34800___course_type___2___wap____http___coding_imooc_com_wap_classindex_cid_167____is_learn___0___act_name________bgcolor_start_____ffff739b____bgcolor_end_____b3ff739b____skills______id____220____name____Java______id____1359____name______u5927__u6570__u636e________id____208____name____MyCAT_MySQL__u642d__u5efa__u9ad8__u53ef__u7528__u4f01__u4e1a__u7ea7__u6570__u636e__u5e93__u96c6__u7fa4____order_type___2___short_description______u56fd__u5185__u9876__u7ea7DBA__u4eb2__u6388__uff0c__u7cbe__u8bb2__u4f01__u4e1a__u7ea7MyCAT__u5e94__u7528__uff0c__u8be6__u89e3__u4e1a__u52a1__u6570__u636e__u5e93__u5206__u5e93__u5206__u8868__u3001__u8bfb__u5199__u5206__u79bb____pic____http___img1_sycdn_imooc_com_szimg_5ad5568300018ede05400300_360_202_jpg____numbers____455____type___2___share____http___www_imooc_com_m_wap_shizhan_classindex_html_cid_208____is_learned___0___learn_rate____1___is_buy___0___is_new___0___level______u4e2d__u7ea7____skill_id____952____skill_name____MySQL____skill_pic____http___img2_mukewang_com_5b17498d0001b07f02400240_jpg____skill_color____5892ee____category_pic____http___img1_mukewang_com_5b1749940001ab5a02400240_jpg____pay_price____199____discount_type___0___discount_name________discount_price________discount_start_time___0___discount_end_time___0___price___19900___course_type___2___wap____http___coding_imooc_com_wap_classindex_cid_208____is_learn___0___act_name________bgcolor_start_____ff4b96dc____bgcolor_end_____b34b96dc____skills______id____952____name____MySQL__________name______u65b0__u8bfe__u4e0a__u67b6____pic____http___www_imooc_com_static_img_andriod_icon_new_course_3x_png____pic_night____http___www_imooc_com_static_img_andriod_icon_new_course_night_3x_png____type___3___list_type___2___operate_type___0___course______id____37____name______u6d4b__u8bd5__u8bfe__u7a0b__uff08__u8bf7__u52ff__u8d2d__u4e70__uff09____bgcolor_start_____ffff739b____bgcolor_end_____b3ff739b____skills______id____4737____name______u5fae__u670d__u52a1______short_description______u6d4b__u8bd5__u8bfe__u7a0b__uff08__u8bf7__u52ff__u8d2d__u4e70__uff091122____numbers____11____ordertype___2___pic______img1_sycdn_imooc_com_szimg_5af2b85e000134d112000675_360_202_jpg____price___100___type___2___is_learned___0___is_buy___0___share____http___coding_imooc_com_wap_classindex_cid_37______id____353____name______u963f__u91cc__u65b0__u96f6__u552e__u6570__u636e__u5e93__u8bbe__u8ba1__u4e0e__u5b9e__u6218_____bgcolor_start_____ffff739b____bgcolor_end_____b3ff739b____skills______id____220____name____Java______id____952____name____MySQL______short_description______u6570__u636e__u5e93__u662f__u5f00__u53d1__u4eba__u5458__u7684__u5fc5__u4fee__u8bfe__uff0c__u89e3__u9501__u201c__u65b0__u96f6__u552e__u201d__u4e1a__u52a1__u8ba9__u6570__u636e__u5e93__u5b9e__u6218__u80fd__u529b__u518d__u4e0a__u4e00__u5c42__u697c____numbers____243____ordertype___2___pic______img1_sycdn_imooc_com_szimg_5d08d0b308c9749706000338_360_202_jpg____price___28800___type___2___is_learned___0___is_buy___0___share____http___coding_imooc_com_wap_classindex_cid_353______id____359____name____Web__u81ea__u52a8__u5316__u6d4b__u8bd5_Selenium__u57fa__u7840__u5230__u4f01__u4e1a__u5b9e__u9645__u5e94__u7528____bgcolor_start_____ffff739b____bgcolor_end_____b3ff739b____skills______id____5265____name______u81ea__u52a8__u5316__u6d4b__u8bd5______short_description______u6210__u4e3aWeb__u81ea__u52a8__u5316__u6d4b__u8bd5__u5de5__u7a0b__u5e08__u7684__u5fc5__u5907__u8bfe__u7a0b____numbers____14____ordertype___2___pic______img1_sycdn_imooc_com_szimg_5d0356e3085c9d4606000338_360_202_jpg____price___26600___type___2___is_learned___0___is_buy___0___share____http___coding_imooc_com_wap_classindex_cid_359________name______u6155__u8bfe__u7cbe__u82f1__u540d__u5e08__u63a8__u8350____pic________pic_night________type___5___list_type___2___operate_type___0___teachers______uid____2155343____nickname______u626c__u5e06__u8fdc__u822a_____aboutme______u62e5__u6709__u591a__u5e74__u5e26__u9886__u534e__u4e3a__u6570__u636e__u6316__u6398__u56e2__u961f__u7ed9__u5168__u4e16__u754c__u8303__u56f4__u5185__u8457__u540d__u8fd0__u8425__u5546__u63d0__u4f9b__u5927__u6570__u636e__u89e3__u51b3__u65b9__u6848__u7684__u7ecf__u9a8c__uff0c__u5de5__u4f5c__u4e2d__u6240__u5e26__u9886__u7684__u56e2__u961f__u4e3b__u8981__u8d1f__u8d23__u5904__u7406__u3001__u6316__u6398__u548c__u5206__u6790__u6bcf__u5929__u6570__u4ee5TB__u8ba1__u7684__u6570__u636e__u3002__u4f5c__u4e3a__u4e00__u4e2a__u5e26__u9886__u62e5__u670920__u4eba__u56e2__u961f__u6210__u529f__u5b8c__u6210__u591a__u4e2a__u5168__u7403__u9879__u76ee__u7684leader___u975e__u5e38__u4e86__u89e3__u5f53__u4eca__u7528__u9014__u6700__u5e7f__u6cdb__u7684__u6570__u636e__u6316__u6398__u3001__u673a__u5668__u5b66__u4e60__u548c__u6570__u7406__u7edf__u8ba1__u65b9__u6cd5___u540c__u65f6__u6709__u7740__u591a__u5e74__u719f__u7ec3__u5e94__u7528__u5404__u79cd__u6570__u636e__u6316__u6398__u5e73__u53f0__u5de5__u5177__u548c__u6570__u7406__u7edf__u8ba1__u5305___u4f8b__u5982R_python__u548cSpark___u7ecf__u9a8c__u3002____portrait____545850bb0001979202200220____job_title______u6570__u636e__u79d1__u5b66__u5bb6____img____http___img1_mukewang_com_545850bb0001979202200220_100_100_jpg____pic____http___img1_mukewang_com_545850bb0001979202200220_370_370_jpg______uid____4379042____nickname______u7f16__u7a0b__u6d6a__u5b50____aboutme______u4e92__u8054__u7f51__u642c__u7816__u5c0f__u738b__u5b50__uff0c__u4ece__u4e8b__u4e92__u8054__u7f51web___u5f00__u53d16__u5e74__uff0c__u70ed__u7231__u642c__u7816__u884c__u4e1a__uff0c__u6709__u4ee3__u7801__u6d01__u7656__uff0c__u5bf9PHP__uff0cPython__uff0cJava__u90fd__u6709__u6d89__u730e__uff0c___u5b9e__u8df5__u7ecf__u9a8c__u4e30__u5bcc__uff0c__u5bcc__u6709__u6fc0__u60c5__uff0c__u70ed__u7231__u5206__u4eab__uff0c__u4e50__u89c2__u5f00__u6717__uff0c__u559c__u6b22__u4e13__u7814__u65b0__u6280__u672f____portrait____583e9afa000166c410240770____job_title____PHP__u5f00__u53d1__u5de5__u7a0b__u5e08____img____http___img2_mukewang_com_583e9afa000166c410240770_100_100_jpg____pic____http___img1_mukewang_com_583e9afa000166c410240770_370_370_jpg______uid____5245191____nickname____DocMike____aboutme______u5b89__u5353__u5de5__u7a0b__u5e08____u591a__u5e74__u5f00__u53d1__u548c__u5e26__u56e2__u961f__u7ecf__u9a8c__uff0c__u66fe__u5728BAT__u7b49__u591a__u5bb6__u4e00__u7ebf__u4e92__u8054__u7f51__u516c__u53f8__u5c31__u804c__uff0cP__u5927__u7855__u58eb__u6bd5__u4e1a__uff0c__u5e94__u5c4a__u751f__u5bfc__u5e08__u3001__u6821__u62db__u3001__u793e__u62db__u9762__u8bd5__u5b98__uff0c__u4e3b__u5bfc__u4e0e__u5f00__u53d1__u8fc7__u591a__u6b3e__u77e5__u540d__u7684__u4e92__u8054__u7f51__u91d1__u878d__u3001__u514d__u8d39__u56fd__u9645__u7535__u8bdd__u3001__u5916__u5356__u7b49__u9879__u76ee__u7684__u67b6__u6784__u4e0e__u5f00__u53d1____portrait____590b09de0001503904000400____job_title______u79fb__u52a8__u5f00__u53d1__u5de5__u7a0b__u5e08____img____http___img3_mukewang_com_590b09de0001503904000400_100_100_jpg____pic____http___img_mukewang_com_590b09de0001503904000400_370_370_jpg______uid____3017249____nickname____ustbhuangyi____aboutme______u5317__u4eac__u79d1__u6280__u5927__u5b66__u8ba1__u7b97__u673a__u4e13__u4e1a__u7855__u58eb__u3002__u66fe__u4efb__u804c__u767e__u5ea6__uff0c__u73b0__u5c31__u804c__u6ef4__u6ef4__uff0c__u524d__u7aef__u6280__u672f__u4e13__u5bb6__u3002__u5bf9Vue_js__u6709__u5f88__u6df1__u7684__u7406__u89e3__uff0c__u662f__u300aVue_js__u6743__u5a01__u6307__u5357__u300b__u4e00__u4e66__u7684__u4e3b__u8981__u4f5c__u8005__u3002__u4ed6__u6709__u7740__u6559__u79d1__u4e66__u5f0f__u7684__u4ee3__u7801__u5199__u4f5c__u4e60__u60ef__uff0c__u5bf9__u4ee3__u7801__u6709__u6d01__u7656__uff0c__u8ffd__u6c42__u9ad8__u8d28__u91cf__u7684__u4ee3__u7801__u3002__u5f3a__u5316__u63d0__u5347__u7f16__u5199__u9ad8__u53ef__u6269__u5c55__uff0c__u901a__u7528__u6027__u5f3a__u7684__u4ee3__u7801__u7684__u80fd__u529b____portrait____577baef700019c4501400140____job_title______u6ef4__u6ef4__u524d__u7aef__u6280__u672f__u4e13__u5bb6____img____http___img1_mukewang_com_577baef700019c4501400140_100_100_jpg____pic____http___img4_mukewang_com_577baef700019c4501400140_370_370_jpg______uid____5027812____nickname______u5feb__u4e50__u52a8__u8d77__u6765__u5440____aboutme____7__u5e74__u5de5__u4f5c__u7ecf__u9a8c__u7684__u8d44__u6df1__u524d__u7aef__u5de5__u7a0b__u5e08__uff0c__u4e3b__u8981__u4ece__u4e8bWeb__u89c6__u9891__u9886__u57df__u7684__u5e95__u5c42__u5f00__u53d1__u3002__u5148__u540e__u5728360__u3001__u53bb__u54ea__u513f__u7f51__u3001__u67d0__u77e5__u540d__u89c6__u9891__u516c__u53f8__u5de5__u4f5c__u3002__u5148__u540e__u8f93__u51fa__u300aES6__u96f6__u57fa__u7840__u6559__u5b66___u89e3__u6790__u5f69__u7968__u9879__u76ee__u300b__u3001__u300a__u524d__u7aef__u8df3__u69fd__u9762__u8bd5__u5fc5__u5907__u6280__u5de7__u300b__u3001__u300a__u524d__u7aef__u9762__u8bd5__u9879__u76ee__u51b2__u523a__uff0c__u4eac__u4e1c__u91d1__u878dVue__u7ec4__u4ef6__u5316__u5b9e__u6218__u300b__u7b49__u8bfe__u7a0b____portrait____54584cb50001e5b302200220____job_title____Web__u524d__u7aef__u5de5__u7a0b__u5e08____img____http___img2_mukewang_com_54584cb50001e5b302200220_100_100_jpg____pic____http___img2_mukewang_com_54584cb50001e5b302200220_370_370_jpg________name______u731c__u4f60__u559c__u6b22____pic____http___www_imooc_com_static_img_andriod_icon_guess_love_3x_png____pic_night____http___www_imooc_com_static_img_andriod_icon_guess_love_night_3x_png____type___4___list_type___1___operate_type___2___course______id____790____name____django__u5165__u95e8__u4e0e__u5b9e__u8df5____short_description______u624b__u628a__u624b__u5e26__u4f60__u8fdb__u5165Django__u5f00__u53d1__u7684__u5927__u95e8__uff0c__u5145__u5206__u9886__u7565Django__u7684__u9b45__u529b____pic____http___img_mukewang_com_586f60d90001776a06000338_590_330_jpg____numbers____58382____type___1___share____http___www_imooc_com_learn_790____is_learned___0___learn_rate____1___is_new___0___level______u521d__u7ea7____skill_id____1118____skill_name____Python____skill_pic____http___img3_mukewang_com_59c896b50001942802400240_jpg____skill_color____0070bb____category_pic____http___img4_mukewang_com_5b1746ed0001976102400240_jpg____course_type___1___is_learn___0___bgcolor_start_____ff4b96dc____bgcolor_end_____b34b96dc____skills______id____1118____name____Python______id____4905____name____Django________id____62____name______u4fe1__u606f__u6392__u5217__u6548__u679c____short_description______u5927__u5496__u6559__u60a8__u8282__u7ea6__u7f51__u9875__u7a7a__u95f4__u7684__u65b9__u6cd5__uff0c__u5feb__u901f__u5b66__u4f1a__u4fe1__u606f__u6392__u5217__u6548__u679c__u7684__u5236__u4f5c____pic____http___img3_mukewang_com_574673940001426706000338_590_330_jpg____numbers____32145____type___1___share____http___www_imooc_com_learn_62____is_learned___0___learn_rate____1___is_new___0___level______u521d__u7ea7____skill_id____44____skill_name____JavaScript____skill_pic____http___img1_mukewang_com_5b1893fd00017f4902400240_jpg____skill_color____eb3030____category_pic____http___img4_mukewang_com_5b1893f90001d25702400240_jpg____course_type___1___is_learn___0___bgcolor_start_____ffd273e6____bgcolor_end_____b3d273e6____skills______id____44____name____JavaScript________id____640____name____R__u8bed__u8a00__u4e4b__u6570__u636e__u53ef__u89c6__u5316____short_description____R__u8bed__u8a00__u4e09__u5927__u7ed8__u56fe__u7cfb__u7edf__uff0c__u7528__u56fe__u5f62__u76f4__u89c2__u63a2__u7d22__u6570__u636e__u3001__u53d1__u73b0__u6709__u4ef7__u503c__u4fe1__u606f____pic____http___img3_mukewang_com_56f8a3a50001f03406000338_590_330_jpg____numbers____34160____type___1___share____http___www_imooc_com_learn_640____is_learned___0___learn_rate____1___is_new___0___level______u4e2d__u7ea7____skill_id____1359____skill_name______u5927__u6570__u636e____skill_pic____http___img3_mukewang_com_5b174aa700017b6102400240_jpg____skill_color____1679d3____category_pic____http___img_mukewang_com_5b174aae00016dda02400240_jpg____course_type___1___is_learn___0___skills______id____1359____name______u5927__u6570__u636e______bgcolor_start_____ffff739b____bgcolor_end_____b3ff739b______id____214____name______u6a21__u5f0f__u7684__u79d8__u5bc6_____u4ee3__u7406__u6a21__u5f0f____short_description______u672c__u8282__u8bfe__u7a0b__u5c06__u5e26__u4f60__u9886__u7565Java__u7f16__u7a0b__u8bed__u8a00__u4e2d__u4ee3__u7406__u6a21__u5f0f__u7684__u5965__u5999____pic____http___img1_mukewang_com_572afd6000019e1f06000338_590_330_jpg____numbers____50839____type___1___share____http___www_imooc_com_learn_214____is_learned___0___learn_rate____1___is_new___0___level______u4e2d__u7ea7____skill_id____220____skill_name____Java____skill_pic____http___img1_mukewang_com_5b17483e00019d4202400240_jpg____skill_color____ff4545____category_pic____http___img4_mukewang_com_5b1746ca000157da02400240_jpg____course_type___1___is_learn___0___bgcolor_start_____ffff739b____bgcolor_end_____b3ff739b____skills______id____220____name____Java________id____262____name____RabbitMQ__u6d88__u606f__u4e2d__u95f4__u4ef6__u6280__u672f__u7cbe__u8bb2____order_type___2___short_description______u4ece0__u52301__uff0c__u5168__u9762__u6df1__u5165__u638c__u63e1RabbitMQ__u6d88__u606f__u4e2d__u95f4__u4ef6__u6280__u672f____pic____http___img1_sycdn_imooc_com_szimg_5b6015ac00011ca105400300_360_202_jpg____numbers____824____type___2___share____http___www_imooc_com_m_wap_shizhan_classindex_html_cid_262____is_learned___0___learn_rate____1___is_buy___0___is_new___0___level______u4e2d__u7ea7____skill_id____220____skill_name____Java____skill_pic____http___img2_mukewang_com_5b17483e00019d4202400240_jpg____skill_color____ff4545____category_pic____http___img2_mukewang_com_5b1746ca000157da02400240_jpg____pay_price____348____discount_type___0___discount_name________discount_price________discount_start_time___0___discount_end_time___0___price___34800___course_type___2___wap____http___coding_imooc_com_wap_classindex_cid_262____is_learn___0___act_name________bgcolor_start_____ffff739b____bgcolor_end_____b3ff739b____skills______id____220____name____Java______id____4903____name____SpringBoot________id____225____name____HTTP__u534f__u8bae__u539f__u7406___u5b9e__u8df5Web__u5f00__u53d1__u5de5__u7a0b__u5e08__u5fc5__u5b66____order_type___2___short_description______u89e3__u6790HTTP__u534f__u8bae__u539f__u7406___u592f__u5b9eHTTP__u6280__u672f__u57fa__u7840___u6253__u901a__u524d__u540e__u7aef__u52a9__u4f60__u5feb__u901f__u6210__u957f____pic____http___img1_sycdn_imooc_com_szimg_5b0cb5df00016e5405400300_360_202_jpg____numbers____2593____type___2___share____http___www_imooc_com_m_wap_shizhan_classindex_html_cid_225____is_learned___0___learn_rate____1___is_buy___0___is_new___0___level______u4e2d__u7ea7____skill_id____44____skill_name____JavaScript____skill_pic____http___img_mukewang_com_5b1893fd00017f4902400240_jpg____skill_color____eb3030____category_pic____http___img_mukewang_com_5b1893f90001d25702400240_jpg____pay_price____99____discount_type___0___discount_name________discount_price________discount_start_time___0___discount_end_time___0___price___9900___course_type___2___wap____http___coding_imooc_com_wap_classindex_cid_225____is_learn___0___act_name________bgcolor_start_____ffd273e6____bgcolor_end_____b3d273e6____skills______id____44____name____JavaScript______id____222____name____Node_js__________errorCode___1000___errorDesc______u6210__u529f____timestamp___1561274618249___</div></td>
+    <td colspan='5' align='center'>通过</td>
+</tr>
+
+<tr id='pt1.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_main_case_3___imooc_003____新课程____yes____imooc_001_data_banner__0__id____id____api3_newcourseskill____post______username___111113___coursename___test___orderid___123___id___123______write____no____json___None___case_通过___None_</div></td>
+    <td colspan='5' align='center'>通过</td>
+</tr>
+
+<tr id='pt1.4' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_main_case_4___imooc_004____评价____yes___None__None___api3_getdownrecommend____post______username___111114______no____no____json___None__None__None_</div></td>
+    <td colspan='5' align='center'>通过</td>
+</tr>
+
+<tr id='pt1.5' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_main_case_5___imooc_005____课程信息____yes___None__None___api3_getcourseintro____post______username___111115______no____no____json___None__None__None_</div></td>
+    <td colspan='5' align='center'>通过</td>
+</tr>
+
+<tr id='pt1.6' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_main_case_6___imooc_006____播放列表____yes___None__None___api3_getmedialist____post______username___111116______no____no____json___None___case_通过___None_</div></td>
+    <td colspan='5' align='center'>通过</td>
+</tr>
+
+<tr id='pt1.7' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_main_case_7___imooc_007____课程列表____yes___None__None___api3_courselistinfo____post______username___111117______no____no____json___None__None__None_</div></td>
+    <td colspan='5' align='center'>通过</td>
+</tr>
+
+        <tr id='total_row'>
+            <td>总计</td>
+            <td>7</td>
+            <td>7</td>
+            <td>0</td>
+            <td>0</td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+
+        <div id='ending'>&nbsp;</div>
+        
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chart'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title : {
+                text: '测试执行情况',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            color: ['#95b75d', 'grey', '#b64645'],
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['通过','失败','错误']
+            },
+            series : [
+                {
+                    name: '测试执行情况',
+                    type: 'pie',
+                    radius : '60%',
+                    center: ['50%', '60%'],
+                    data:[
+                        {value:7, name:'通过'},
+                        {value:0, name:'失败'},
+                        {value:0, name:'错误'}
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+    
+    </div>
+</body>
+</html>
