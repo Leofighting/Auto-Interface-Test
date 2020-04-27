@@ -5,6 +5,7 @@ import unittest
 import json
 
 from base.base_request import request
+from util.condition_data import condition_data
 from util.handle_excel import excel_data
 from util.handle_header import handle_header
 from util.handle_result import handle_result
@@ -20,16 +21,25 @@ class RunMain:
             cookie = None
             get_cookie = None
             header = None
+            depend_data = None
             is_run = data[2]
 
             if is_run == "yes":
-                method = data[5]
-                url = data[4]
-                data1 = data[6]
-                cookie_method = data[7]
-                is_header = data[8]
-                excepted_method = data[9]
-                excepted_result = data[10]
+                is_depend = data[3]
+                data1 = json.loads(data[7])
+                if is_depend:
+                    """获取依赖数据"""
+                    depend_key = data[4]
+                    depend_data = condition_data.get_data(is_depend)
+                    data1[depend_key] = depend_data
+
+                method = data[6]
+                url = data[5]
+
+                cookie_method = data[8]
+                is_header = data[9]
+                excepted_method = data[10]
+                excepted_result = data[11]
 
                 if cookie_method == "yes":
                     cookie = handle_cookie.get_cookie_value("app")
@@ -48,17 +58,17 @@ class RunMain:
                 if excepted_method == "mec":
                     config_message = handle_result.get_result(url, code)
                     if message == config_message:
-                        excel_data.excel_write_data(i, 12, "case 通过")
+                        excel_data.excel_write_data(i, 13, "case 通过")
                     else:
-                        excel_data.excel_write_data(i, 12, "case 失败")
-                        excel_data.excel_write_data(i, 13, json.dumps(res))
+                        excel_data.excel_write_data(i, 13, "case 失败")
+                        excel_data.excel_write_data(i, 14, json.dumps(res))
 
                 if excepted_method == "error_code":
                     if str(excepted_result) == str(code):
-                        excel_data.excel_write_data(i, 12, "case 通过")
+                        excel_data.excel_write_data(i, 13, "case 通过")
                     else:
-                        excel_data.excel_write_data(i, 12, "case 失败")
-                        excel_data.excel_write_data(i, 13, json.dumps(res))
+                        excel_data.excel_write_data(i, 13, "case 失败")
+                        excel_data.excel_write_data(i, 14, json.dumps(res))
 
                 if excepted_method == "json":
                     if code == 1000:
@@ -70,10 +80,10 @@ class RunMain:
                     # print("expected_result>>>", expected_result)
                     result = handle_result.get_json_result(res, expected_result)
                     if result:
-                        excel_data.excel_write_data(i, 12, "case 通过")
+                        excel_data.excel_write_data(i, 13, "case 通过")
                     else:
-                        excel_data.excel_write_data(i, 12, "case 失败")
-                        excel_data.excel_write_data(i, 13, json.dumps(res))
+                        excel_data.excel_write_data(i, 13, "case 失败")
+                        excel_data.excel_write_data(i, 14, json.dumps(res))
 
 
 if __name__ == '__main__':

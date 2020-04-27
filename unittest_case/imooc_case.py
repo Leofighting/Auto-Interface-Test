@@ -69,5 +69,3 @@ if __name__ == '__main__':
     with open(file_path, "wb") as f:
         runner = HTMLTestRunner_PY3.HTMLTestRunner(stream=f, title="this is test", description="Leo test")
         runner.run(suite)
-
-    # unittest.main()
