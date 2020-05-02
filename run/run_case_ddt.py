@@ -21,9 +21,11 @@ test_data = excel_data.get_excel_data()
 
 @ddt.ddt
 class TestRunCaseDdt(unittest.TestCase):
+    """以数据驱动运行测试"""
 
     @ddt.data(*test_data)
     def test_main_case(self, data):
+        """测试用例"""
         cookie = None
         get_cookie = None
         header = None

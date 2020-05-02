@@ -3,6 +3,24 @@
   <component name="ChangeListManager">
     <list default="true" id="664b6f0b-a079-4faa-89c6-cf37318a94ae" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/mock_run.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/mock_run.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mock_test/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mock_test/mock01.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/run_case_ddt.py" beforeDir="false" afterPath="$PROJECT_DIR$/run/run_case_ddt.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/run_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/run/run_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittest_case/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittest_case/ddt_case.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittest_case/get_data.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittest_case/imooc_case.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittest_case/run_case.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittest_case/test_case01.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittest_case/test_case02.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittest_case/test_case03.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/handle_cookie.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/handle_cookie.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/handle_excel.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/handle_excel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/handle_ini.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/handle_ini.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/handle_json.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/handle_json.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/handle_result.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/handle_result.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -272,6 +290,8 @@
       <workItem from="1587857486086" duration="29381000" />
       <workItem from="1587942381240" duration="22624000" />
       <workItem from="1588030615819" duration="84000" />
+      <workItem from="1588033459348" duration="124000" />
+      <workItem from="1588430317587" duration="2785000" />
     </task>
     <servers />
   </component>
@@ -307,10 +327,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="788" y="148" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1587785038985" />
-    <state x="1167" y="243" width="647" height="534" key="find.popup" timestamp="1587979736209">
+    <state x="1167" y="243" width="647" height="534" key="find.popup" timestamp="1588432197943">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1167" y="243" width="647" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1587979736209" />
+    <state x="1167" y="243" width="647" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1588432197943" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1587969614968">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

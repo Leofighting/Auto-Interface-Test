@@ -6,7 +6,16 @@ from deepdiff import DeepDiff
 
 
 class HandleResult:
-    def get_result(self, url, code):
+    """结果处理"""
+
+    @staticmethod
+    def get_result(url, code):
+        """
+        获取结果
+        :param url: url连接
+        :param code: 对应结果的编码
+        :return: 返回结果信息
+        """
         data = handle_json.get_value(url, "/config/code_message.json")
         if data:
             for item in data:
@@ -16,10 +25,12 @@ class HandleResult:
 
         return None
 
-    def get_json_result(self, dict1, dict2):
+    @staticmethod
+    def get_json_result(dict1, dict2):
+        """对比两个字典是否发生变更"""
+        # 先判断两个传入值是否为字典
         if isinstance(dict1, dict) and isinstance(dict2, dict):
             cmp_dict = DeepDiff(dict1, dict2, ignore_order=True).to_dict()
-            # print(cmp_dict)
             if cmp_dict.get("dictionary_item_added") or cmp_dict.get("dictionary_item_removed"):
                 return False
             else:
@@ -27,7 +38,14 @@ class HandleResult:
 
         return False
 
-    def get_result_json(self, url, status):
+    @staticmethod
+    def get_result_json(url, status):
+        """
+        获取结果
+        :param url: url 接口
+        :param status: 状态码
+        :return: json格式的结果
+        """
         data = handle_json.get_value(url, "/config/result.json")
         if data:
             for item in data:
@@ -38,8 +56,3 @@ class HandleResult:
 
 
 handle_result = HandleResult()
-# dict1 = {"111": "123", "222": "222"}
-# dict2 = {"222": "222"}
-# print(handle_result.get_json_result(dict1, None))
-
-# print(handle_result.get_result_json("api3/newcourseskill", "sucess"))

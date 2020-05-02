@@ -18,8 +18,3 @@ class HandleCookie:
 
 
 handle_cookie = HandleCookie()
-# res = handle_cookie.get_cookie_value("web")
-# print(res)
-# data1 = {"eee": "fff"}
-# handle_cookie.write_cookie(data1, "web")
-# print(res)

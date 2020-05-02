@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
 __author__ = "leo"
 
-import unittest
 import json
 
 from base.base_request import request
@@ -13,7 +12,11 @@ from util.handle_cookie import handle_cookie
 
 
 class RunMain:
-    def run_case(self):
+    """主运行文件"""
+
+    @staticmethod
+    def run_case():
+        """运行用例"""
         rows = excel_data.get_rows()
 
         for i in range(2, rows + 1):

@@ -22,13 +22,13 @@ def mock_data(request):
     try:
         data = json.loads(data)
         mock_data[url] = data
-    except Exception:
+    except Exception as e:
         return_data["message"] = "传递的数据不是 json 格式"
         return json.dumps(return_data)
 
     try:
         handle_json.write_value(mock_data, file_name="/config/user_data.json")
-    except Exception:
+    except Exception as e:
         return_data["message"] = "写入数据失败"
         json.dumps(return_data)
 

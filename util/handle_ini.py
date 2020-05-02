@@ -6,15 +6,6 @@ import os
 import configparser
 
 
-# base_path = os.path.dirname(os.getcwd())
-# file_path = base_path + "/config/server.ini"
-#
-# cf = configparser.ConfigParser()
-# cf.read(file_path)
-# data = cf.get("server", "host")
-# print(data)
-
-
 class HandleIni:
     def load_ini(self):
         base_path = os.path.dirname(os.getcwd())

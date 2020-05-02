@@ -8,7 +8,15 @@ base_path = os.path.dirname(os.getcwd())
 
 
 class HandleJson:
-    def read_json(self, file_name=None):
+    """处理 json 文件"""
+
+    @staticmethod
+    def read_json(file_name=None):
+        """
+        读取 json 文件
+        :param file_name: 文件名
+        :return: json 文件内容
+        """
         if file_name is None:
             file_path = base_path + "/config/user_data.json"
         else:
@@ -19,10 +27,23 @@ class HandleJson:
         return data
 
     def get_value(self, key, file_name=None):
+        """
+        根据关键字，在 json 文件获取对应值
+        :param key: 关键字
+        :param file_name: 文件名
+        :return: 对应的值
+        """
         data = self.read_json(file_name)
         return data.get(key)
 
-    def write_value(self, data, file_name=None):
+    @staticmethod
+    def write_value(data, file_name=None):
+        """
+        向 json 文件写入内容
+        :param data: 内容
+        :param file_name: 文件名
+        :return:
+        """
         if file_name is None:
             path = base_path + "/config/cookie.json"
         else:
