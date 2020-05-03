@@ -10,6 +10,7 @@ import ddt
 import HTMLTestRunner_PY3
 
 from base.base_request import request
+from config import settings
 from util.condition_data import condition_data
 from util.handle_cookie import handle_cookie
 from util.handle_excel import excel_data
@@ -30,34 +31,45 @@ class TestRunCaseDdt(unittest.TestCase):
         get_cookie = None
         header = None
         depend_data = None
-        case_id = data[0]
-        is_run = data[2]
+        # 用例的编号
+        case_id = data[settings.CASE_ID]
+        # 是否执行
+        is_run = data[settings.IS_RUN]
+        # 行号
         i = excel_data.get_row_number(case_id)
 
         if is_run == "yes":
-            is_depend = data[3]
-            data1 = json.loads(data[7])
+            # 依赖信息
+            is_depend = data[settings.IS_DEPEND]
+            # 头信息内容
+            data1 = json.loads(data[settings.DATA1])
             try:
                 if is_depend:
                     """获取依赖数据"""
-                    depend_key = data[4]
+                    # 依赖关键字
+                    depend_key = data[settings.DEPEND_KEY]
                     depend_data = condition_data.get_data(is_depend)
                     data1[depend_key] = depend_data
+                # 请求方式
+                method = data[settings.METHOD]
+                # 接口
+                url = data[settings.URL]
+                # 是否携带 cookies 或者写入 cookies
+                cookie_method = data[settings.COOKIE_METHOD]
+                # 是否携带头信息
+                is_header = data[settings.IS_HEADER]
+                # 预期结果的形式
+                excepted_method = data[settings.EXCEPTED_METHOD]
+                # 预期结果
+                excepted_result = data[settings.EXCEPTED_RESULT]
 
-                method = data[6]
-                url = data[5]
-
-                cookie_method = data[8]
-                is_header = data[9]
-                excepted_method = data[10]
-                excepted_result = data[11]
-
+                # 携带 cookies 时的操作
                 if cookie_method == "yes":
                     cookie = handle_cookie.get_cookie_value("app")
-
+                # 写入 cookies 时的操作
                 if cookie_method == "write":
                     get_cookie = {"is_cookie": "app"}
-
+                # 是否携带头信息
                 if is_header == "yes":
                     header = handle_header.get_header()
 
@@ -70,19 +82,19 @@ class TestRunCaseDdt(unittest.TestCase):
                     config_message = handle_result.get_result(url, code)
                     try:
                         self.assertEqual(message, config_message)
-                        excel_data.excel_write_data(i, 13, "case 通过")
+                        excel_data.excel_write_data(i, settings.RESULT, "case 通过")
                     except Exception as e:
-                        excel_data.excel_write_data(i, 13, "case 失败")
-                        excel_data.excel_write_data(i, 14, json.dumps(res))
+                        excel_data.excel_write_data(i, settings.RESULT, "case 失败")
+                        excel_data.excel_write_data(i, settings.DATA, json.dumps(res))
                         raise e
 
                 if excepted_method == "error_code":
                     try:
                         self.assertEqual(str(excepted_result), str(code))
-                        excel_data.excel_write_data(i, 13, "case 通过")
+                        excel_data.excel_write_data(i, settings.RESULT, "case 通过")
                     except Exception as e:
-                        excel_data.excel_write_data(i, 13, "case 失败")
-                        excel_data.excel_write_data(i, 14, json.dumps(res))
+                        excel_data.excel_write_data(i, settings.RESULT, "case 失败")
+                        excel_data.excel_write_data(i, settings.DATA, json.dumps(res))
                         raise e
 
                 if excepted_method == "json":
@@ -95,13 +107,13 @@ class TestRunCaseDdt(unittest.TestCase):
                     if result:
                         try:
                             self.assertTrue(result)
-                            excel_data.excel_write_data(i, 13, "case 通过")
+                            excel_data.excel_write_data(i, settings.RESULT, "case 通过")
                         except Exception as e:
-                            excel_data.excel_write_data(i, 13, "case 失败")
-                            excel_data.excel_write_data(i, 14, json.dumps(res))
+                            excel_data.excel_write_data(i, settings.RESULT, "case 失败")
+                            excel_data.excel_write_data(i, settings.DATA, json.dumps(res))
                             raise e
             except Exception as e:
-                excel_data.excel_write_data(i, 13, "case 失败")
+                excel_data.excel_write_data(i, settings.RESULT, "case 失败")
                 raise e
 
 

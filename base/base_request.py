@@ -5,13 +5,16 @@ import json
 
 import requests
 
-from util.handle_ini import handle_ini
-from util.handle_json import handle_json
+from config import settings
 from util.handle_cookie import handle_cookie
 
 
 class BaseRequest:
-    def send_post(self, url, data, cookie=None, get_cookie=None, header=None):
+    """基础配置"""
+
+    @staticmethod
+    def send_post(url, data, cookie=None, get_cookie=None, header=None):
+        """发送post请求"""
         response = requests.post(url=url, data=data, cookies=cookie, headers=header)
 
         if get_cookie:
@@ -21,7 +24,9 @@ class BaseRequest:
         res = response.text
         return res
 
-    def send_get(self, url, data, cookie=None, get_cookie=None, header=None):
+    @staticmethod
+    def send_get(url, data, cookie=None, get_cookie=None, header=None):
+        """发送 get 请求"""
         response = requests.get(url=url, params=data, cookies=cookie, headers=header)
 
         if get_cookie:
@@ -33,7 +38,8 @@ class BaseRequest:
         return res
 
     def run_main(self, method, url, data, cookie=None, get_cookie=None, header=None):
-        base_url = handle_ini.get_value("host")
+        """执行主方法"""
+        base_url = settings.HOST
         if "http" not in url:
             url = base_url + url
         if method == "post":

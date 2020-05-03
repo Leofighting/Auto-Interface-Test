@@ -3,8 +3,6 @@ __author__ = "leo"
 
 import json
 
-from mitmproxy import http
-
 from util.handle_json import handle_json
 
 
