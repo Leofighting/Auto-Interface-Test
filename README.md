@@ -4,7 +4,7 @@
 
 > 逻辑控制层
 >
-> - `ddt`库：关键字驱动
+> - `ddt`库：数据驱动
 > - `unittest`库：自动化测试框架
 > - `requests库：HTTP客户端库`
 > - `openpyxl`库：处理 Excel 文件
